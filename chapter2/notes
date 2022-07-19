@@ -1,7 +1,52 @@
-ELF binary - four parts
+## ELF binary - four parts
 1. Executable header
 2. program header
 3. sections
 4. section headers
+
+## file path for elf header
+/usr/include/ elf.h
+
+## e_ident array
+16 bytes
+
+0x7f, E, L, F --> magic bytes
+4 --> EI_CLASS --> set to ELFCLASS32 = 1 early for 32 bit now set to ELFCLASS64 = 2 for 64 bit
+5 --> EI_DATA --> set to ELFDATA2LSB(1) = little endian and if set to ELFDATA2MSB(2)  = big endian
+6 --> version of ELF, set to EV_CURRENT = 1
+7 --> EI_OSABI =>  information regarding Application Binary Interface(ABI) and OS 
+                   if non-zero, some OS-specific/ABI specific extensions used in ELF,
+                   change in meanining of fields, some nonstd. headers,
+                   if 0  -> UNIX V abi
+8 --> EI_ABIVERSION => ABI version
+9---15 --> EL_PAD
+
+## examining the binary header
+readelf -h a.out
+
+## e_type, e_machine, e_version
+1. e_type:
+    type of ELF binary
+    common val: ET_REL(relocatable object file), ET_EXEC(an executable binary), ET_DYN(shared object file)
+2. e_machine
+    type of arch. binary intended to run on
+    common val: EM_X86_64, EM_386(32 bit bin), EM_ARM(ARM bin)
+3. e_version
+  same as EI_VERSION in ei_ident array.. set to EV_CURRENT
+
+## e_entry-> entry point of bin, interpreter will transfer control over here
+
+## e_phoff, e_shoff fields
+e_phoff -> offset to program headers table
+e_shoff -> offset to section headers table
+if 0, means no header
+
+## e_flags
+flags specific to arch.
+generally set to 0 for intel x86_64
+
+## e_ehsize: ELF header size = 64 bytes for 64 bit while = 52byte for 32 bit
+
+## 
 
 
