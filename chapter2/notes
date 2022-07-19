@@ -47,6 +47,61 @@ generally set to 0 for intel x86_64
 
 ## e_ehsize: ELF header size = 64 bytes for 64 bit while = 52byte for 32 bit
 
-## 
+## e_*entsize and e_*num :
+
+Linker and loader need size of program/section headers + number of such headers
+e_phentsize and e_phnum -> size and number of headers for program headers table
+e_shentsize and e_shnum -> size and number of headers for section headers table
+
+## e_shstrdx 
+Index in section header table for .shstrtab (strings table)
+
+Examining the .shstrtab using readelf
+readelf -x .shstrtab build/a.out
+
+## section headers
+
+section - link time
+segments - run time
+optional in ELF
+location: /usr/include/elf.h
+
+1. sh_name : index into .shstrtab defines name of section, if 0 then no name
+
+## sh_type:
+Each section's type. 
+Info to linker about structure of sections content
+SHT_PROGBITS -> machine instructions and constants. Nothing for linker to parse. 
+SHT_SYMTAB -> static symbol table
+SHT_DYNSYM -> dynamic symbol table
+SHT_STRTAB -> string tables
+SHT_REL / SHT_RELA -> useful for linker(static linking)
+SHT_DYNAMIC -> useful for linker(dynamic linking)
+
+Content: struct name
+Symbol : Elf64_Sym
+linker info: Elf64_Rel and Elf64_Rela
+linker info(Dynamic): Elf64_Dyn
+
+## sh_flags field
+sections flags
+most imp flags : SH_WRITE, SH_ALLOC, SH_EXECINSTR
+SHF_WRITE: section is wriable(variables)
+SHF_ALLOC : section content to be loaded in Virt Mem. while run time
+SHF_EXEC : section is executable
+
+## sh_addr, sh_offset, sh_size
+1. sh_addr : virtual address of section
+2. sh_offset: offset to section from start of file
+3. sh_size : size of the section
+
+##  sh_link:
+relationship among sections. index(in the SH table) of related section
+
+## sh_info: 
+additional info for section. Example for relocation section it is index of section for which reloactions needs to be applied
+
+## sh_addralign
+if this section need addr alignment..
 
 
