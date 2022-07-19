@@ -1,0 +1,48 @@
+## stop at preprocessing phase
+
+gcc -E -P filename.c
+
+
+## stop at compiling phase
+
+gcc -S -masm=intel filename.c
+
+## stop at linking phase
+
+gcc -c filename.c
+
+## last step (executable)
+
+gcc filename.c
+
+## file command output
+
+/lib64/ld-linux-x86-64.so.2 --> which dynamic linker will be used to resolve dll refs
+
+In windows we got: ntdll.dll
+
+## reading debug symbols
+
+readelf --syms a.out
+
+## stripping the binary
+
+strip --strip-all a.out
+
+## Display .rodata section(Read-only data)
+objdump -sj .rodata compilation_example.o
+
+## disassemble object in intel style
+objdump -M intel -d compilation_example.o
+
+## show relocatable symbols in bin
+
+readelf --relocs compilation_example.o
+
+## disassemble unstripped by binary
+
+objdump -M intel -d a.out
+
+## dumping interpreter section
+
+readelf -p .interp a.out

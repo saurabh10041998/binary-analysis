@@ -1,0 +1,7 @@
+ELF binary - four parts
+1. Executable header
+2. program header
+3. sections
+4. section headers
+
+
