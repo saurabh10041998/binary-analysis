@@ -104,4 +104,8 @@ additional info for section. Example for relocation section it is index of secti
 ## sh_addralign
 if this section need addr alignment..
 
+## sh_entsize
+Some header entries present in section header table, print size of those entries
+
+
 
