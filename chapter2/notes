@@ -107,5 +107,47 @@ if this section need addr alignment..
 ## sh_entsize
 Some header entries present in section header table, print size of those entries
 
+## Sections
+
+##To view the sections in ELF
+
+readelf --sections --wide build/a.out
+
+First section in ELF
+SHT_NULL -> section header with no section present
+
+## .init and .fini section
+.init -> executable section, executes program before main function starts
+.fini -> executable section, executes program after main function finished
+
+## .text section
+
+most of code/ Area of focus for binary analysis and rev engg
+Executable but not writable
+Contains some of the functions that perform initialization and finalization
+_start, register_tm_clones and frame_dummy
+
+main focus: _start --> _libc_start_main --> main
+
+e_entry of ELF HEADER = virtual address for _start
+
+## .bss, .data and .rodata section
+
+.text is not writable, so variables are stored in other sections to keep binary neat
+.data ->  default value of initialized vars.. writable
+.rodata -> constants and not writable
+.bss -> 'block started by symbol' contains uninitialized data
+
+.data and .rodata -> marked as SHT_PROGBITS
+.bss -> marked as SHT_NOBITS "doesn't  occupy any bits in binary as it exists on disk". This is just a directive to say allocate this much block of memory for uninitialized data durting ELF execution. vars initialized to zero, writable
+
+## Lazy binding and .plt, .got, .plt.got section
+
+dynamic linker -> last minute relocations
+resolution is done only when first reference to unresolved symbol is made.. lazy binding
+
+## Lazy binding and .plt section
+
+LD_BIND_NOW
 
 
