@@ -147,7 +147,25 @@ dynamic linker -> last minute relocations
 resolution is done only when first reference to unresolved symbol is made.. lazy binding
 
 ## Lazy binding and .plt section
+Default behaviour of linker -> Resolve the reference only when refered.. lazy binding
+You can change this behavior using env variable = LD_BIND_NOW, which will resolve all link ref when ELF is loaded for execution.
+Two section: plt(procedure linkage table) and got(global offset table).
+ELF has special section called as .got.plt, which uses .got in conjuction with .plt for lazy binding
 
-LD_BIND_NOW
+Diff -> .got.plt is runtime writable, .got is not
+RELRO -> relocations readonly, protection againsts overwriting .got..
+to enable this protection, use ld option -z relro
 
+RELRO->places the entries that are runtime writable into the .got.plt section and others in .got section
+
+.plt -> code section
+.got.plt -> data section
+
+.plt -> stubs of well defined structure.. which directs from .text to appropriate library call
+
+## disassembling .plt section
+
+objdump -d -M intel --section .plt a.out
+
+## 
 
