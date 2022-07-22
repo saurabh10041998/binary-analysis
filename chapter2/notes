@@ -167,5 +167,54 @@ RELRO->places the entries that are runtime writable into the .got.plt section an
 
 objdump -d -M intel --section .plt a.out
 
+##plt stub structure
+1. default stub
+2. series of stub per library function
+3. with each stub, value which is pushed onto stack is incremented(identifier).
+      Example PUSH 0x0 then PUSH 0x1
+## Why we need to GOT?
+1. to keep .text non writable, as attacker can inject arbitrary code.
+## .rel* or .rela* sections
+Type : SHT_RELA -> relocation info(used by linker) like where, how to do relocation
+
+##Getting the relocation info from binary:
+readelf --relocs build/a.out
+
+Two types of relocation:
+1. R_X86_64_GLOB_DAT ==> relocation done via global offset table(direct address available)
+2. R_X86_64_JUMP_SLO ==> relocation  via jump slot (.plt then .got tramploin)
+
+## dynamic section
+1. road map to operating system and dynamic linker to load and setup ELF binary for execution.
+2. Elf64_Dyn data structure
+
+## get dynamic section of .elf
+readelf --dynamic build/a.out
+
+DT_NEEDED -> inform dynamic linker about dependancies needed.
+DT_VERNEED -> starting address of version dependancy table.
+DT_VERNEEDNUM -> number of entries in version dependancy table.
+
+## .init_array and .fini_array
+1. .init_array -> array of function pointers that can be used as constructor
+you can have as many function in the .init_array section
+mark the function with __attribute__((constructor))
+
+## init array section
+objdump -d --section .init_array build/a.out 
+
+## program headers
+See all the segments in program section
+
+readelf --wide --segments build/a.out
+
+## p_type field
+1. type of program header
+2. PT_LOAD -> segment to be loaded into memory.. start address and size mentioned  in the header. 
+              atleast two  LOAD segment..one for nonwritable and one for writable
+3. PT_DYNAMIC -> dynamic info
+4. PT_INTERP -> contains .interp section => dynamic linker name
+5. PT_PHDR -> program header table
+
 ## 
 
