@@ -216,5 +216,26 @@ readelf --wide --segments build/a.out
 4. PT_INTERP -> contains .interp section => dynamic linker name
 5. PT_PHDR -> program header table
 
-## 
+## p_flag
+runtime access info for a segments
+PF_X -> executable(code segment)
+PF_W -> writable(only for data not for code)
+PF_R -> readable (both data and code)
+
+## p_offset, p_vaddr, p_paddr, p_filesz and p_memsz:
+
+p_offset == sh_offset
+p_vaddr == sh_addr
+p_filesz == sh_size
+
+p_vaddr = p_offset % page_size(normally 4096 B)
+sometimes, possible mention of p_paddr -> physical address of segment
+in modern system linux dont use this field, so p_paddr = 0
+
+p_filesz -> size of elf, no relocation of .bss
+p_memsz -> size of elf, with .bss relocated
+
+p_memsz >= p_filesz
+
+
 
