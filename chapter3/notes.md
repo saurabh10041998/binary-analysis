@@ -42,3 +42,13 @@ So actual base virtual address of code = BaseOfImage + BaseOfCode
 9. DD has entries of RVA and size of important sections
 10. most important entries index 0 =>  export directory and index 5 => relocation table
 
+## Section header
+1. Mostly analogoues to ELF section heade, contains entries of type `IMAGE_SECTION_HEADER`
+2. two size fields
+  i. SizeOfRawData : size in file
+  ii. VirtualSize : size of section in memory
+3. PointerToRawData -> offset, VirtualAddress -> virtual address of section
+4. name (8 byte long) : name of section(so max 8 chars long)
+5. No different sections and segment like in ELF
+6. Execution info provided by DataDirectory
+7. Section header table  used for both linking and loading.
