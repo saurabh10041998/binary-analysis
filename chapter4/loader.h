@@ -4,6 +4,7 @@
 #include<stdint.h>
 #include<string>
 #include<vector>
+#include<bfd.h>
 
 class Binary;
 class Section;
@@ -21,7 +22,7 @@ public:
     Symbol(): type(SYM_TYPE_UKN), name(), addr(0) {}
     
     SymbolType type;
-    string str;
+    string name;
     uint64_t addr;
 };
 
@@ -77,5 +78,11 @@ public:
 
 int load_binary(string &fname, Binary* bin, Binary::BinaryType type);
 void unload_binary(Binary *bin);
+
+static int load_binary_bfd(string &fname, Binary *bin, Binary::BinaryType type);
+static bfd* open_bfd(string &fname);
+static int load_symbols_bfd(bfd* bfd_h, Binary *bin);
+static int load_dynsym_bfd(bfd* bfd_h, Binary *bin);
+static int load_sections_bfd(bfd* bfd_h, Binary *bin);
 
 #endif /* LOADER_H */ 
