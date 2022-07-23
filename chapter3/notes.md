@@ -61,3 +61,5 @@ So actual base virtual address of code = BaseOfImage + BaseOfCode
 ```bash
 objdump -M intel -d hello.exe
 ```
+## padding in CE code section
+int3 instruction added as padding ignored by Visual Studio like nop
