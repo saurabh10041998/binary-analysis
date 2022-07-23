@@ -237,5 +237,13 @@ p_memsz -> size of elf, with .bss relocated
 
 p_memsz >= p_filesz
 
+## p_align field
+
+p_align == sh_addralign
+alignment required  by process in bytes
+0/1 : no alignment
+power of 2 : those bytes align
+p_vaddr = p_offset % p_align
+
 
 
