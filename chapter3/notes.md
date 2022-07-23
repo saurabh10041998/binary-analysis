@@ -52,3 +52,12 @@ So actual base virtual address of code = BaseOfImage + BaseOfCode
 5. No different sections and segment like in ELF
 6. Execution info provided by DataDirectory
 7. Section header table  used for both linking and loading.
+
+## .edata and .idata sections
+1. .edata => symbol and addresses for exported function from the code
+2. .idata => symbol and addresses of imported function from DLL
+3. Import Address Table == GOT of the ELf
+4. To dissable and examine code
+```bash
+objdump -M intel -d hello.exe
+```
