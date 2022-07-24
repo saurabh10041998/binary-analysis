@@ -43,3 +43,23 @@ xxd 67b8601 | head -n 15
 ```bash
  xxd -i 67b8601 | head -n 15
 ```
+11. carving out elf header(64 bytes for 64 bit bin) from bitmap
+```bash
+dd skip=52 count=64 if=bitmap of=elf_header bs=1
+```
+12. readelf header recon
+```bash
+readelf -h elf_header
+```
+13. Computing the size of binary
+```bash
+    size = sh_offset + e_shentsize * e_shnum
+         = 8568 + 64 * 27
+         = 10,296
+```
+Since section header is last part of ELF, you have given offset of section header table
+(`sh_offset`),size of section header entry (shentsize) and number of entries (shnum)
+14. carving .so from bitmap using dd
+```bash
+ dd skip=52 count=10296 if=67b8601 of=lib5ae9b7f.so bs=1 
+``` 
