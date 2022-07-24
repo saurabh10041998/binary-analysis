@@ -111,6 +111,16 @@ strings ctf
 ```bash
  objdump -s --section .rodata ctf   
 ```
+26. Setting env gdb
+```bash
+set env GUESSME=pleaseSubscribe
+r show_me_the_flag
+```
+27. Solution
+```bash
+GUESSME="Crackers Don't Matter" ./ctf show_me_the_flag
+flag: 84b34c124b2ba5ca224af8e33b077e9e
+```
 ### mangling
 mangled string -> combination of original function name and an encoding of function paramters
 disadv -> difficult to read
