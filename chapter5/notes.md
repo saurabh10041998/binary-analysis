@@ -59,7 +59,39 @@ readelf -h elf_header
 ```
 Since section header is last part of ELF, you have given offset of section header table
 (`sh_offset`),size of section header entry (shentsize) and number of entries (shnum)
+
 14. carving .so from bitmap using dd
 ```bash
  dd skip=52 count=10296 if=67b8601 of=lib5ae9b7f.so bs=1 
 ``` 
+15. readelf to check symbols and header for so file
+```bash
+ readelf -h lib5ae9b7f.so
+```
+16. parsing static symbol table with nm
+```bash
+ nm lib5ae9b7f.so
+```
+17. parsing dynamic symbol table with nm
+```bash
+nm -D lib5ae9b7f.so
+```
+18. demangle symbols with nm
+```bash
+ nm -D --demangle lib5ae9b7f.so
+```
+19. c++filt to demangle 
+```bash
+ c++filt  _Z11rc4_decryptP11rc4_state_tPhi
+```
+20. using binwalk to extract the files
+```bash
+ binwalk --dd=".*" 67b8601
+```
+
+
+
+### mangling
+mangled string -> combination of original function name and an encoding of function paramters
+disadv -> difficult to read
+adv -> free paramters type info for reverse engineering
