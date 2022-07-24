@@ -26,16 +26,23 @@ main(int argc, char *argv[]) {
             bin.filename.c_str(),
             bin.type_str.c_str(), bin.arch_str.c_str(),
             bin.bits, bin.entry);
-
-    for(i = 0; i < bin.sections.size(); ++i) {
-        printf("Printing section %d\n", i);
+    
+    printf("\x1B[92m[*] Total detected sections -> %d\n\x1B[0m",  bin.sections.size());
+    for(i = 0; i < bin.sections.size();i++) {
         sec = &bin.sections[i];
-        if(sec)
-            printf("    0x%016jx %-8ju %-20s %s\n",
-                sec->vma, sec->size, sec->name.c_str()
-                ,sec->type == Section::SEC_TYPE_CODE ? "CODE": "DATA");
+        printf("    0x%016jx %-8ju %-20s %s\n",
+            sec->vma, sec->size, sec->name.c_str()
+            ,sec->type == Section::SEC_TYPE_CODE ? "CODE": "DATA");
     }
-    printf("*** Done ***"); 
+    if(bin.symbols.size() > 0) {
+        printf("\x1B[92m[*] Scanned symbol table\x1B[0m\n");
+        for(i = 0; i < bin.symbols.size(); ++i) {
+            sym = &bin.symbols[i];
+            printf("    %-40s 0x%016jx %s\n",
+                    sym->name.c_str(), sym->addr,
+                    (sym->type & Symbol::SYM_TYPE_FUNC) ? "FUNC": "");
+        }
+    }
     unload_binary(&bin); 
 
     return 0;
