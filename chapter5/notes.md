@@ -23,4 +23,23 @@ base64 -d build/payload  > build/decoded_payload
 ```bash
  tar -xvzf decoded_payload
 ```
-
+6. Finding out program dependancy on Shared Object file 
+```bash
+ ldd ctf
+```
+7. grepping ELF to  figure out how many are binaries 
+```bash
+ grep "ELF" *
+```
+8. ASCII table for ref
+```bash
+man ascii
+```
+9. running xxd to figure out bitmap file structure
+```bash
+xxd 67b8601 | head -n 15
+```
+10. output xxd in cstyle array
+```bash
+ xxd -i 67b8601 | head -n 15
+```
