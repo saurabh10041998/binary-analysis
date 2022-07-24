@@ -94,6 +94,23 @@ $ export LD_LIBRARY_PATH=`pwd`
 $ ./ctf
 $ echo $?   
 ```
+22. running strings to get some idea
+```bash
+strings ctf
+```
+23. running the strace on file
+```bash
+ strace -o ctf.strace ./ctf show_me_the_flag
+```
+24. running ltrace(need to install)
+```bash
+ ltrace -i -C ./ctf show_me_the_flag   
+ GUESSME="pleaseSubscribe" ltrace -i -C ./ctf show_me_the_flag
+```
+25. observing the readonly data secton using objdump
+```bash
+ objdump -s --section .rodata ctf   
+```
 ### mangling
 mangled string -> combination of original function name and an encoding of function paramters
 disadv -> difficult to read
