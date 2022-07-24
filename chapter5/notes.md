@@ -88,9 +88,12 @@ nm -D lib5ae9b7f.so
 ```bash
  binwalk --dd=".*" 67b8601
 ```
-
-
-
+21. linking to custom so file
+```bash
+$ export LD_LIBRARY_PATH=`pwd` 
+$ ./ctf
+$ echo $?   
+```
 ### mangling
 mangled string -> combination of original function name and an encoding of function paramters
 disadv -> difficult to read
